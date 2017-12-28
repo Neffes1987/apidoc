@@ -122,22 +122,24 @@
 <script id="template-article" type="text/x-handlebars-template">
   <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
     <div class="pull-left">
-      <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
+      <h1>{{underscoreToSpace article.title}}</h1>
     </div>
     {{#if template.withCompare}}
-    <div class="pull-right">
-      <div class="btn-group">
-        <button class="version btn btn-default dropdown-toggle" data-toggle="dropdown">
-          <strong>{{article.version}}</strong>&nbsp;<span class="caret"></span>
-        </button>
-        <ul class="versions dropdown-menu open-left">
-          <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
-        {{#each versions}}
-          <li class="version"><a href="#">{{this}}</a></li>
-        {{/each}}
-        </ul>
-      </div>
-    </div>
+        {{#if article.type}}
+            <div class="pull-right">
+              <div class="btn-group">
+                <button class="version btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <strong>{{article.version}}</strong>&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="versions dropdown-menu open-left">
+                  <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
+                {{#each versions}}
+                  <li class="version"><a href="#">{{this}}</a></li>
+                {{/each}}
+                </ul>
+              </div>
+            </div>
+        {{/if}}
     {{/if}}
     <div class="clearfix"></div>
 
@@ -150,8 +152,10 @@
     {{#if article.description}}
       <p>{{{nl2br article.description}}}</p>
     {{/if}}
-    <span class="type type__{{toLowerCase article.type}}">{{toLowerCase article.type}}</span>
-    <pre class="prettyprint language-html" data-type="{{toLowerCase article.type}}"><code>{{article.url}}</code></pre>
+    {{#if article.type}}
+        <span class="type type__{{toLowerCase article.type}}">{{toLowerCase article.type}}</span>
+        <pre class="prettyprint language-html" data-type="{{toLowerCase article.type}}"><code>{{article.url}}</code></pre>
+    {{/if}}
 
     {{#if article.permission}}
       <p>
