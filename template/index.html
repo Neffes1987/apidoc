@@ -14,28 +14,36 @@
 <body>
 
 <script id="template-sidenav" type="text/x-handlebars-template">
-<nav id="scrollingNav">
-  <div class="sidenav-search">
-    <input class="form-control search" type="text" placeholder="{{__ "Filter..."}}">
-    <span class="search-reset">x</span>
-  </div>
-  <ul class="sidenav nav nav-list list">
-  {{#each nav}}
-    {{#if title}}
-      {{#if isHeader}}
-        {{#if isFixed}}
-          <li class="nav-fixed nav-header navbar-btn nav-list-item" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
-        {{else}}
-          <li class="nav-header nav-list-item" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
-        {{/if}}
-      {{else}}
-        <li class="{{#if hidden}}hide {{/if}}" data-group="{{group}}" data-name="{{name}}" data-version="{{version}}">
-          <a href="#api-{{group}}-{{name}}" class="nav-list-item">{{title}}</a>
-        </li>
-      {{/if}}
-    {{/if}}
-  {{/each}}
-  </ul>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="row">
+        <div class="col-xs-2 text-center">
+            <ul class="nav nav-list list">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Меню <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {{#each nav}}
+                          {{#if title}}
+                            {{#if isHeader}}
+                              {{#if isFixed}}
+                                <li class="nav-fixed nav-header navbar-btn nav-list-item" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+                              {{else}}
+                                <li class="nav-header nav-list-item" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+                              {{/if}}
+                            {{/if}}
+                          {{/if}}
+                        {{/each}}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="sidenav-search pull-left hidden">
+          <input class="form-control search" type="text" placeholder="{{__ "Filter..."}}">
+          <span class="search-reset">x</span>
+        </div>
+    </div>
 </nav>
 </script>
 
@@ -87,16 +95,27 @@
 </script>
 
 <script id="template-sections" type="text/x-handlebars-template">
-  <section id="api-{{group}}">
+  <section id="api-{{group}}" class='sectionTabs'>
     <h1>{{underscoreToSpace title}}</h1>
     {{#if description}}
       <p>{{{nl2br description}}}</p>
     {{/if}}
-    {{#each articles}}
-      <div id="api-{{group}}-{{name}}">
-        {{{article}}}
-      </div>
-    {{/each}}
+    <ul class="nav nav-tabs ">
+        {{#each articles}}
+              <li>
+                  <a class="nav-list-item" data-href='#api_{{group}}_{{name}}'>
+                      {{underscoreToSpace name}}
+                  </a>
+              </li>
+        {{/each}}
+    </ul>
+    <div class="tab-content">
+        {{#each articles}}
+            <div class="tab-pane" id="api_{{group}}_{{name}}">
+                {{{article}}}
+            </div>
+        {{/each}}
+    </div>
   </section>
 </script>
 
@@ -636,7 +655,7 @@
   </tbody>
 </script>
 
-<div class="container-fluid">
+<div class="container-fluid mainBlock">
   <div class="row">
     <div id="sidenav" class="span2"></div>
     <div id="content">

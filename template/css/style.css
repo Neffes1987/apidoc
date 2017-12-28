@@ -18,11 +18,14 @@ td.code {
   font-style: normal;
   font-weight: 400;
 }
-
+.mainBlock{
+    margin-top: 50px;
+}
 #content {
   padding-top: 16px;
   z-Index: -1;
-  margin-left: 270px;
+  width: 98%;
+  margin: auto;
 }
 
 p {
@@ -49,7 +52,7 @@ h2 {
 
 section {
   border-top: 1px solid #ebebeb;
-  padding: 30px 0;
+  padding: 50px 0;
 }
 
 section h1 {
@@ -248,6 +251,9 @@ pre code.sample-request-response-json {
 /* ------------------------------------------------------------------------------------------
  * Sidenav
  * ------------------------------------------------------------------------------------------ */
+.nav.nav-tabs li{
+    cursor: pointer;
+}
 .sidenav {
   width: 228px;
   margin: 0;
@@ -311,7 +317,7 @@ pre code.sample-request-response-json {
 .sidenav-search {
   width: 228px;
   left: 0px;
-  position: fixed;
+  position: relative;
   padding: 16px 20px 10px 20px;
   background-color: #F5F5F5;
   z-index: 11;
